@@ -19,26 +19,6 @@ function initYMaps(){
 	objMap=map1;
 	console.log("Center of the map1:["+ x0 + ","+y0+"]");
 	map1.events.add('click',onClickMap);
-	  var myGeoObject = new ymaps.GeoObject({
-            geometry: {
-                type: "LineString",
-                coordinates: [
-                    [x0, y0],
-                    [x1, y1]
-                ]
-            },
-            properties:{
-                hintContent: "Маршрут",
-            }
-        }, {
-            draggable: false,
-            strokeColor: "#FFFF00",
-            strokeWidth: 10
-        });
-
-
-    // Добавляем линии на карту.
-    map1.geoObjects.add(myGeoObject)
 	
 	
 	//Панорама
@@ -77,4 +57,27 @@ function onPanoramaChange(){
 	var panorama=objPlayer.getPanorama();
 	var newPos=panorama.getPosition();
 	console.log(newPos);
+	var map1=objMap;
+		  var myGeoObject = new ymaps.GeoObject({
+            geometry: {
+                type: "LineString",
+                coordinates: [
+                    [x0, y0],
+                    [newPos[0],newPos[1]]
+                ]
+            },
+            properties:{
+                hintContent: "Маршрут",
+            }
+        }, {
+            draggable: false,
+            strokeColor: "#0000FF",
+            strokeWidth: 10
+        });
+
+
+    // Добавляем линии на карту.
+    map1.geoObjects.add(myGeoObject);
+	x0=newPos[0];
+	y0=newPos[1];
 }
