@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ломаная</title>
+    <title>Yandex Maps. Плеер маршрута</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=121b1dad-e146-4190-baa9-6793ba13d40f" type="text/javascript"></script>
     <script src="main.js" type="text/javascript"></script>
 	<style>
         html,body, #map, .player1 {
-           display:flex; width: 1600px; height: 700px; padding: 0; margin: 0;
+           display:flex; width: 1600px; height: 700px; padding: 0; margin: 0; position: static;
         }
-		onclick{
-			display:inline;width: 200px; height: 100px;}
+		button{
+			display:inline; width: 200px; height: 50px; position:relative; left: -1405px; top: 700px;}
+		.counter{
+			width: 400px; height: 150px; position:fixed; left: 200px; top: 700px;}
+		.coordinates{
+			width: 800px; height: 150px; position:fixed; left: 200px; top: 720px;}
+		.ssilka{position:fixed; left: 50px; top: 760px;} 
+		.ssilka1{position:fixed; left: 50px; top: 800px;} 
+		.ssilka2{position:fixed; left: 50px; top: 840px;} 
     </style>
 </head>
 <body>
 <div id="map"></div>
 <div class="player1" id="player"></div>
-<button onclick="onClickOpen()">Open</button>
+<button onclick="onClickUpdate()">Обновить маршрут</button>
+<button onclick="onClickBack()">Возврат</button>
+<div class="counter" id="counter">Счётчик шагов : 0 </div>
+<div class="coordinates" id="coordinates">Текущие координаты :  </div>
+<button class="ssilka" onclick="kyrov()">Киров</button>
+<button class="ssilka1" onclick="Perm()">Пермь</button>
+<button class="ssilka2" onclick="Izhevsk()">Ижевск</button>
 </body>
 </html>
 	
