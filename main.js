@@ -6,6 +6,7 @@ var zoom0=18;
 var objMap=new Object();
 var objPlayer=new Object();
 var objArray=new Object();
+var objPos=new Object();
 var cnt=0;
 
 window.onload=initWindowOnload;
@@ -16,6 +17,7 @@ function initWindowOnload(){
 	coordinates.textContent="Текущие координаты : [" + x0 + "],[" + y0 + "]";
 	let coordArray = new Array();
 	objArray=coordArray;
+	coordArray.push([x0,y0]);
 }
 
 //Создание карты
@@ -55,7 +57,7 @@ function initYMaps(){
 	function(panoramas){
 		if(panoramas.length>0){
 			var player=new ymaps.panorama.Player(
-				'player',panoramas[0],{direction:[140,15]}
+				'player',panoramas[0],{direction:[140,15], hotkeysEnabled:true}
 				);
 		} 
 		objPlayer=player;
@@ -63,7 +65,6 @@ function initYMaps(){
 
 	});
 }
-
 
 
 function onClickMap(e){
@@ -79,6 +80,7 @@ function onClickMap(e){
 function onPanoramaChange(){
 	var panorama=objPlayer.getPanorama();
 	var newPos=panorama.getPosition();
+	objPos=newPos;
 	var x1=newPos[0];
 	var y1=newPos[1];
 	var map1=objMap;
@@ -189,15 +191,22 @@ function onClickUpdate(){
             strokeColor: "#0000FF",
             strokeWidth: 20
         });
-		map1.geoObjects.add(myGeoObject4)
 		
-		counter.textContent="Счётчик шагов : 0";
+	map1.geoObjects.add(myGeoObject4)
 		
-		coordArray=objArray;
-		for(var i=coordArray.length;i>0;i--){
-			coordArray.pop();}
-
+	counter.textContent="Счётчик шагов : 0";
+		
+	coordArray=objArray;
+	
+	for(var i=coordArray.length;i>0;i--){
+		coordArray.pop();}
+		
+	newPos=objPos;
+	coordArray.push([newPos[0],newPos[1]]);
+	console.log(coordArray);
 }
+
+//При нажатии на кнопку "Возврат"
 function onClickBack(){
 	coordArray=objArray;
 	player=objPlayer;
@@ -206,15 +215,12 @@ function onClickBack(){
 	if(coordArray.length>1){
 		coordArray.splice(coordArray.length-2,2);
 		}
-		else{
-			player.moveTo([x,y]);
-		}
-	cnt-=2;
+	cnt-=1;
 	console.log("кнопка");
 	console.log(coordArray);
 }
-//Для гиперссылок на города
-function kyrov(){
+//Для кнопок с городами
+function Kirov(){
 player=objPlayer;
 map=objMap;
 player.moveTo([58.602685, 49.630212]);
